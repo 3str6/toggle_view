@@ -28,30 +28,44 @@ Download from [here](https://github.com/3str6/toggle_view/releases/download/v1.0
 ### Toggle Collection
 #### Collection  
 表示をON/OFFしたいCollectionを指定します。  
+Collection to toggle the visibility of.  
 #### Toggle Visibility  
 指定したCollectionの表示をON/OFFします。  
+Toggle the visiblity of the specified colletion.  
 
 ### Toggle Viewport Shading
 #### Collection
-モディファイアの表示をON/OFFしたいCollectionを指定します。
+モディファイアの表示をON/OFFしたいCollectionを指定します。  
+Collection to toggele modifiers' visibility of.  
 #### Toggle Shading
-Viewport Shadingと、指定したCollection中のオブジェクトのモディファイヤ表示をON/OFFします。 
+Viewport Shadingと、指定したCollection中のオブジェクトのモディファイヤ表示をON/OFFします。   
+Toggle Viewport Shading and the modifiers-visibility of the objects in the specified collection.  
 #### Recursive Collection
-ONにすると、Collectionの中にあるCollection中のオブジェクトのモディファイア表示もON/OFFします。 
+ONにすると、Collectionの中にあるCollection中のオブジェクトのモディファイア表示もON/OFFします。   
+ON: Operate collections in the specified collecion too.  
 #### Toggle All Screens
-ONにすると、すべてのスクリーンのViewport Shadingを切り替えます。
+ONにすると、すべてのスクリーンのViewport Shadingを切り替えます。  
+ON: Toggle Viewport Shading of all screens.  
 #### Toggle Viewport Shading
-ONにすると、Viewport Shadingを切り替えます。
+ONにすると、Viewport Shadingを切り替えます。  
+ON: Toggle Viewport Shading.  
 #### Shading Setting
-切り替えたいViewport Shadingの設定を記録します。A, Bの2パターンを記録できます。
-Register A：現在のiewport Shading設定をパターンAに記録します。
-Register B：現在のiewport Shading設定をパターンAに記録します。
+切り替えたいViewport Shadingの設定を記録します。A, Bの2パターンを記録できます。  
+Register A：現在のiewport Shading設定をパターンAに記録します。  
+Register B：現在のiewport Shading設定をパターンAに記録します。  
+
+You can register 2 patterns of Viewport Shading here.  
+Register A: Register current Viewport Shading setting as pattern A.  
+Register B: Register current Viewport Shading setting as pattern B.  
 #### Toggle Modifiers
-ONにすると、モディファイア表示を切り替えます。
+ONにすると、モディファイア表示を切り替えます。  
+ON: Toggle the visibility of modifiers.  
 #### Modifier Type
-モディファイア表示を切り替えたいモディファイアの種類を指定します。
+モディファイア表示を切り替えたいモディファイアの種類を指定します。  
+Choose Modifier type to toggle.  
 #### Object Type
-モディファイア表示を切り替えたいオブジェクトの種類を指定します。
+モディファイア表示を切り替えたいオブジェクトの種類を指定します。  
+Choose Object type to toggle the modifiers-visibility.  
 
 ## 類似機能を持つアドオンの紹介_Other Addons
 - Batch Ops
