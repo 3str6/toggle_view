@@ -7,13 +7,22 @@ toggle_viewはViewport上でのオブジェクトので見た目を1ボタンで
 - 指定したcollectionの表示をON/OFFする
 - 指定したcollectionの中のオブジェクトのモディファイア表示をON/OFFする
 - Viewport Shadingを指定した設定に切り替える
+<br>
+
+toggle_view can toggle the appearances on the 3D viewport by one click.    
+This process won't be registered on Undo History.     
+You can toggle the visiblity between heavy state and light one.    
 
 ## 導入方法_Installation
 最新版ダウンロードは[こちら](https://github.com/3str6/toggle_view/releases/download/v1.0/toggle_view.zip)  
 1.編集 > プリファレンス... > アドオン > インストール > ダウンロードした.zipを選択します。  
 2.下のリストに「3D View: Toggle View」が表示されるのでチェックを入れて有効化します。  
-3.3Dビュー > サイドバー（Nキー） > ツール タブ > Toggle Collection, Toggle Viewport Shading　が追加されています。  
+3.3Dビュー > サイドバー（Nキー） > ツール タブ > Toggle Collection, Toggle Viewport Shading パネルが追加されています。  
 <br>
+Download from [here](https://github.com/3str6/toggle_view/releases/download/v1.0/toggle_view.zip)  
+1.Edit > Preference... > Add-on > Install > Select the downloaded workspace_importer.zip.  
+2.Enable '3D View: Toggle View'.  
+3.View3d > Sidebar(N-key) > Tool Tab > Toggle Collection, Toggle Viewport Shading Panel is added.  
 
 ## 機能一覧_Functions
 ### Toggle Collection
