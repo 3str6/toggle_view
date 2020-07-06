@@ -2,7 +2,7 @@ bl_info = {
     "name": "Toggle View",
     "author": "gogo",
     "version": (0, 0, 1),
-    "blender": (2, 83, 0),
+    "blender": (2, 83, 1),
     "description": "Toggle viewport display",
     "warning": "",
     "support": "TESTING",
@@ -242,8 +242,6 @@ def ui_modifier_type(self, context):
     props = context.scene.tglview
     layout.prop(props, "toggle_modifier_type", icon="TRIA_DOWN" if props.toggle_modifier_type else "TRIA_RIGHT", text="Modifier Type", emboss=False)
     if props.toggle_modifier_type:
-        # 複数列配置
-        layout.label(text="複数列配置:")
         column = layout.box().column(align=True)
         row = column.row(align=True)
 
@@ -613,10 +611,10 @@ class TGLVIEW_OT_reset_hotkey(bpy.types.Operator):
 
 
 class TGLVIEWT_MT_AddonPreferences(AddonPreferences):
-    bl_idname = "TGLVIEWT_MT_AddonPreferences"
+    bl_idname = __name__
     category : StringProperty(
         name="Tab Category",
-        description="Choose a name for the category of the panel",
+        description="Tab Category name for Panels",
         default="Item", update=update_panel
     )
 
@@ -633,7 +631,7 @@ class TGLVIEWT_MT_AddonPreferences(AddonPreferences):
         col.label(text="Keymap List:",icon="KEYINGSET")
 
         wm = bpy.context.window_manager
-        kc = wm.keyconfigs.addon
+        kc = wm.keyconfigs.user
         for keymaps_added, keyitems_added in addon_keymaps:
             for keymaps_config in kc.keymaps:
                 if keymaps_added.name == keymaps_config.name:
