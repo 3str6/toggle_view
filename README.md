@@ -51,8 +51,8 @@ ONにすると、Viewport Shadingを切り替えます。
 ON: Toggle Viewport Shading.  
 #### Shading Setting
 切り替えたいViewport Shadingの設定を記録します。A, Bの2パターンを記録できます。  
-Register A：現在のiewport Shading設定をパターンAに記録します。  
-Register B：現在のiewport Shading設定をパターンAに記録します。  
+Register A：現在のViewport Shading設定をパターンAに記録します。  
+Register B：現在のViewport Shading設定をパターンAに記録します。  
 
 You can register 2 patterns of Viewport Shading here.  
 Register A: Register current Viewport Shading setting as pattern A.  
