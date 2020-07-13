@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Toggle View",
     "author": "gogo",
-    "version": (0, 0, 1),
+    "version": (1, 0, 0),
     "blender": (2, 83, 1),
     "description": "Toggle viewport display",
     "warning": "",
