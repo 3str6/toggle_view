@@ -173,6 +173,7 @@ MODIFIER_TYPE_SIMULATE_NAME = [
     "Soft Body",
 ]
 
+
 def check_modifiers(context, mod_type):
     props = context.scene.tglview
     target_modifiers = [modifier_type for modifier_type, flag in zip(MODIFIER_TYPE_MODIFY, props.flag_modifier_type_modify) if flag is True]
@@ -320,25 +321,26 @@ class TGLVIEW_OT_toggle_view(bpy.types.Operator):
             props.bSwitch_view = True
             settings = context.scene.tglview_shader_1
 
-        if props.bToggle_all_screens:
-            for area in context.screen.areas:
-                if area.type == 'VIEW_3D':
-                    for space in area.spaces:
-                        if space.type == 'VIEW_3D':
-                            toggle_shader(space.shading, settings)
-        else:
-            toggle_shader(context.space_data.shading, settings)
+        if props.bToggle_shading:
+            if props.bToggle_all_screens:
+                for area in context.screen.areas:
+                    if area.type == 'VIEW_3D':
+                        for space in area.spaces:
+                            if space.type == 'VIEW_3D':
+                                toggle_shader(space.shading, settings)
+            else:
+                toggle_shader(context.space_data.shading, settings)
 
-
-        if props.oCollection_list_view:
-            toggle_modifiers(context, props.oCollection_list_view, props.bSwitch_view)
-            if props.bRecursive_search:
-                for collection in props.oCollection_list_view.children:
-                    toggle_modifiers(context, collection, props.bSwitch_view)
-        else:
-            for mod in obj.modifiers:
-                if check_modifiers(context, mod.type):
-                    mod.show_viewport = props.bSwitch_view
+        if props.bToggle_modifier:
+            if props.oCollection_list_view:
+                toggle_modifiers(context, props.oCollection_list_view, props.bSwitch_view)
+                if props.bRecursive_search:
+                    for collection in props.oCollection_list_view.children:
+                        toggle_modifiers(context, collection, props.bSwitch_view)
+            else:
+                for mod in obj.modifiers:
+                    if check_modifiers(context, mod.type):
+                        mod.show_viewport = props.bSwitch_view
         
         context.view_layer.update()
 
@@ -351,7 +353,7 @@ class TGLVIEW_OT_toggle_view_register(bpy.types.Operator):
     bl_description = "Register Viewport Shading"
     bl_options = {'REGISTER', 'UNDO'}
 
-    slot_index :IntProperty(default=0)
+    slot_index: IntProperty(default=0)
 
     def execute(self, context):
         if self.slot_index == 0:
@@ -385,7 +387,6 @@ class TGLVIEW_PT_view(TGLVIEWPanel, bpy.types.Panel):
     bl_label = "Toggle Viewport Shading"
     bl_idname = "TGLVIEW_PT_view"
     bl_options = {'DEFAULT_CLOSED'}
-
 
     def draw(self, context):
         layout = self.layout
@@ -427,12 +428,12 @@ class TGLVIEW_props(bpy.types.PropertyGroup):
         default=True,
     )
     bToggle_modifier: BoolProperty(
-        name="bToggle_shading",
+        name="bToggle_modifier",
         description="Internal",
         default=True,
     )
     bToggle_all_screens: BoolProperty(
-        name="bToggle_shading",
+        name="bToggle_all_screens",
         description="Internal",
         default=False,
     )
