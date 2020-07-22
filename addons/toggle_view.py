@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Toggle View",
     "author": "gogo",
-    "version": (1, 0, 0),
+    "version": (0, 0, 1),
     "blender": (2, 83, 1),
     "description": "Toggle viewport display",
     "warning": "",
@@ -238,6 +238,10 @@ def toggle_shader(target, source):
     target.xray_alpha_wireframe = source.xray_alpha_wireframe
 
 
+def toggle_hide(obj):
+    obj.hide_set(not obj.hide_get())
+
+
 def ui_modifier_type(self, context):
     layout = self.layout
     props = context.scene.tglview
@@ -365,6 +369,28 @@ class TGLVIEW_OT_toggle_view_register(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class TGLVIEW_OT_toggle_hide(bpy.types.Operator):
+    bl_idname = "tglview.toggle_hide"
+    bl_label = "Toggle Hide "
+    bl_description = "Toggle Hide"
+    bl_options = {'REGISTER'}
+
+    def execute(self, context):
+        props = context.scene.tglview
+        for obj in props.oCollection_list_view.objects:
+            if obj == context.object:
+                continue
+            toggle_hide(obj)
+
+        for collection in props.oCollection_list_view.children:
+            for obj in collection.objects:
+                if obj == context.object:
+                    continue
+                toggle_hide(obj)
+
+        return {'FINISHED'}
+
+
 class TGLVIEWPanel:
     # Developer note: this is displayed in tool settings as well as the 3D view.
     bl_space_type = 'VIEW_3D'
@@ -381,6 +407,7 @@ class TGLVIEW_PT_collection(TGLVIEWPanel, bpy.types.Panel):
         props = context.scene.tglview
         layout.prop(props, property="oCollection_list_collection", text="Collection")
         layout.operator(TGLVIEW_OT_toggle_collection.bl_idname, text="Toggle Visibility")
+        layout.operator(TGLVIEW_OT_toggle_hide.bl_idname, text="Toggle Hide")
 
 
 class TGLVIEW_PT_view(TGLVIEWPanel, bpy.types.Panel):
@@ -460,13 +487,13 @@ class TGLVIEW_props(bpy.types.PropertyGroup):
     flag_object_type: BoolVectorProperty(
         name="flag_object_type",
         size=len(OBJECT_TYPE),
-        default=[True,  # MESH
-                 False, # CURVE
-                 False, # SURFACE
-                 False, # FONT
-                 False, # VOLUME
-                 False, # GPENCIL
-                 False, # LATTICE
+        default=[True,      # MESH
+                 False,     # CURVE
+                 False,     # SURFACE
+                 False,     # FONT
+                 False,     # VOLUME
+                 False,     # GPENCIL
+                 False,     # LATTICE
                 ],
     )
     flag_modifier_type_modify: BoolVectorProperty(
@@ -492,43 +519,43 @@ class TGLVIEW_props(bpy.types.PropertyGroup):
 
 
 class TGLVIEW_shader(bpy.types.PropertyGroup):
-    background_color :FloatVectorProperty(default=(0.05, 0.05, 0.05))
-    background_type :StringProperty(default='THEME')
-    cavity_ridge_factor :FloatProperty(default=1.0)
-    cavity_type :StringProperty(default='SCREEN')
-    cavity_valley_factor :FloatProperty(default=1.0)
-    color_type :StringProperty(default='MATERIAL')
-    curvature_ridge_factor :FloatProperty(default=1.0)
-    curvature_valley_factor :FloatProperty(default=1.0)
-    # cycles :
-    light :StringProperty(default='STUDIO')
-    object_outline_color :FloatVectorProperty(default=(0.0, 0.0, 0.0))
-    render_pass :StringProperty(default='COMBINED')
-    # selected_studio_light :
-    shadow_intensity :FloatProperty(default=0.5)
-    show_backface_culling :BoolProperty(default=False)
-    show_cavity :BoolProperty(default=False)
-    show_object_outline :BoolProperty(default=False)
-    show_shadows :BoolProperty(default=False)
-    show_specular_highlight :BoolProperty(default=True)
-    show_xray :BoolProperty(default=False)
-    show_xray_wireframe :BoolProperty(default=True)
-    single_color :FloatVectorProperty(default=(0.8, 0.8, 0.8))
-    studio_light :StringProperty(default='DEFAULT')
-    studiolight_background_alpha :FloatProperty(default=0.0)
-    studiolight_background_blur :FloatProperty(default=0.5)
-    studiolight_intensity :FloatProperty(default=1.0)
-    studiolight_rotate_z :FloatProperty(default=0.0)
-    type :StringProperty(default='SOLID')
-    use_dof :BoolProperty(default=False)
-    use_scene_lights :BoolProperty(default=False)
-    use_scene_lights_render :BoolProperty(default=True)
-    use_scene_world :BoolProperty(default=False)
-    use_scene_world_render :BoolProperty(default=True)
-    use_world_space_lighting :BoolProperty(default=False)
-    wireframe_color_type :StringProperty(default='MATERIAL')
-    xray_alpha :FloatProperty(default=0.5)
-    xray_alpha_wireframe :FloatProperty(default=0.5)
+    background_color: FloatVectorProperty(default=(0.05, 0.05, 0.05))
+    background_type: StringProperty(default='THEME')
+    cavity_ridge_factor: FloatProperty(default=1.0)
+    cavity_type: StringProperty(default='SCREEN')
+    cavity_valley_factor: FloatProperty(default=1.0)
+    color_type: StringProperty(default='MATERIAL')
+    curvature_ridge_factor: FloatProperty(default=1.0)
+    curvature_valley_factor: FloatProperty(default=1.0)
+    # cycles:
+    light: StringProperty(default='STUDIO')
+    object_outline_color: FloatVectorProperty(default=(0.0, 0.0, 0.0))
+    render_pass: StringProperty(default='COMBINED')
+    # selected_studio_light:
+    shadow_intensity: FloatProperty(default=0.5)
+    show_backface_culling: BoolProperty(default=False)
+    show_cavity: BoolProperty(default=False)
+    show_object_outline: BoolProperty(default=False)
+    show_shadows: BoolProperty(default=False)
+    show_specular_highlight: BoolProperty(default=True)
+    show_xray: BoolProperty(default=False)
+    show_xray_wireframe: BoolProperty(default=True)
+    single_color: FloatVectorProperty(default=(0.8, 0.8, 0.8))
+    studio_light: StringProperty(default='DEFAULT')
+    studiolight_background_alpha: FloatProperty(default=0.0)
+    studiolight_background_blur: FloatProperty(default=0.5)
+    studiolight_intensity: FloatProperty(default=1.0)
+    studiolight_rotate_z: FloatProperty(default=0.0)
+    type: StringProperty(default='SOLID')
+    use_dof: BoolProperty(default=False)
+    use_scene_lights: BoolProperty(default=False)
+    use_scene_lights_render: BoolProperty(default=True)
+    use_scene_world: BoolProperty(default=False)
+    use_scene_world_render: BoolProperty(default=True)
+    use_world_space_lighting: BoolProperty(default=False)
+    wireframe_color_type: StringProperty(default='MATERIAL')
+    xray_alpha: FloatProperty(default=0.5)
+    xray_alpha_wireframe: FloatProperty(default=0.5)
 
 
 '''
@@ -613,12 +640,11 @@ class TGLVIEW_OT_reset_hotkey(bpy.types.Operator):
 
 class TGLVIEWT_MT_AddonPreferences(AddonPreferences):
     bl_idname = __name__
-    category : StringProperty(
+    category: StringProperty(
         name="Tab Category",
         description="Tab Category name for Panels",
         default="Item", update=update_panel
     )
-
 
     def draw(self, context):
         layout = self.layout
@@ -646,7 +672,8 @@ class TGLVIEWT_MT_AddonPreferences(AddonPreferences):
                 col.context_pointer_set("keymap", km)
                 rna_keymap_ui.draw_kmi([], kc, km, kmi, col, 0)
                 col.separator()
-            except: pass
+            except:
+                pass
     
         col.operator(TGLVIEW_OT_reset_hotkey.bl_idname, text="Reset Keymaps")
         layout.operator("wm.url_open", text="GitHub", icon="URL").url = "https://github.com/3str6"
@@ -662,6 +689,7 @@ classes = (
     TGLVIEW_OT_toggle_collection,
     TGLVIEW_OT_toggle_view,
     TGLVIEW_OT_toggle_view_register,
+    TGLVIEW_OT_toggle_hide,
     TGLVIEW_PT_collection,
     TGLVIEW_PT_view,
     TGLVIEW_props,
